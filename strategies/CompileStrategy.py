@@ -25,4 +25,4 @@ class CompileStrategy( ITestStrategy ):
     
     def execute_strategy(self):
         # Compilation logic goes here
-        pass
+        print ( "Compiling code..." )
