@@ -1,8 +1,8 @@
 # compile_strategy.py
-from .itest_strategy import ITestStrategy
+from . import ITestStrategy
 
 # Concrete Strategy for Compilation
-class CompileStrategy(ITestStrategy):
+class CompileStrategy( ITestStrategy ):
     """_summary_
 
         Args:

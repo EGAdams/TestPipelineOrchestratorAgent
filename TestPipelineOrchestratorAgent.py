@@ -1,17 +1,14 @@
 from abc import ABC, abstractmethod
 from typing import List, Callable
+from .ITestStrategy import ITestStrategy
+from .ITestPipelineObserver import ITestPipelineObserver
+from .strategies.CompileStrategy import CompileStrategy
+from .ITestCommand import ITestCommand
 
 # Concrete Strategy for Test Reporting
 class ReportTestsStrategy(ITestStrategy):
     def execute_strategy(self):
         # Test reporting logic goes here
-        pass
-
-# Command Pattern: Command interface for test pipeline operations.
-class ITestCommand(ABC):
-    @abstractmethod
-    def execute(self):
-        """Execute the command."""
         pass
 
 # Concrete Command for initiating test pipeline steps.
