@@ -1,19 +1,13 @@
 from typing import List
+from agency_swarm import set_openai_key, Agent
+import ITestCommand
+from .ITestPipelineObserver import ITestPipelineObserver
+from typing import List
 
-# Assuming an existing base Agent class in the framework
-class Agent:
-    def __init__(self):
-        pass
+set_openai_key( input( "YOUR_API_KEY: " ))
 
-    # Other common methods and attributes for agents can be defined here
 
 # Interface definitions (placeholders, define as needed)
-class ITestPipelineObserver:
-    pass
-
-class ITestCommand:
-    def execute(self):
-        pass
 
 class TestPipelineCommand(ITestCommand):
     def __init__(self, strategy):
@@ -28,13 +22,16 @@ class CompileStrategy:
     pass
 
 # Test Pipeline Orchestrator Agent
+
+
 class TestPipelineOrchestratorAgent(Agent):
     def __init__(self):
         super().__init__()
-        self.observers: List[ITestPipelineObserver] = []
+        self.observers: List [ITestPipelineObserver ] = []
         self.current_command: ITestCommand = None
 
     # Remaining methods as previously defined
+
 
 class Codebase:
     def analyze_code(self):

@@ -1,7 +1,7 @@
 from abc import ABC, abstractmethod
 
 # Command Pattern: Command interface for test pipeline operations.
-class ITestCommand(ABC):
+class ITestCommand( ABC ):
     """_summary_
 
     Args:
