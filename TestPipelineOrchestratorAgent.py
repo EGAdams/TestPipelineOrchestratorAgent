@@ -8,8 +8,15 @@ from .ITestCommand import ITestCommand
 
 # Test Pipeline Orchestrator Agent
 class TestPipelineOrchestratorAgent:
-    def __init__(self):
-        self.observers: List[ITestPipelineObserver] = []
+    def __init__( self ):
+        super().__init__(
+            name="TestPipelineOrchestratorAgent",
+            description="Orchestrates the execution of software test commands, informs system observers, and manages command execution and notifications through the TestPipelineOrchestratorAgent class, serving as a foundational yet extendable part of a software testing system.",
+            instructions="./instructions.md",
+            files_folder="./files",
+            tools=[]  # add tools here like tools=[ ExampleTool ]
+        )
+        self.observers: List[ ITestPipelineObserver ] = []
         self.current_command: ITestCommand = None
 
     def add_observer(self, observer: ITestPipelineObserver):
