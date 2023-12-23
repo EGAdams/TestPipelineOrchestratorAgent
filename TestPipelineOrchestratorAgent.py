@@ -3,21 +3,8 @@ from typing import List, Callable
 from .ITestStrategy import ITestStrategy
 from .ITestPipelineObserver import ITestPipelineObserver
 from .strategies.CompileStrategy import CompileStrategy
+from .commands.TestPipelineCommand import TestPipelineCommand
 from .ITestCommand import ITestCommand
-
-# Concrete Strategy for Test Reporting
-class ReportTestsStrategy(ITestStrategy):
-    def execute_strategy(self):
-        # Test reporting logic goes here
-        pass
-
-# Concrete Command for initiating test pipeline steps.
-class TestPipelineCommand(ITestCommand):
-    def __init__(self, strategy: ITestStrategy):
-        self.strategy = strategy
-
-    def execute(self):
-        self.strategy.execute_strategy()
 
 # Test Pipeline Orchestrator Agent
 class TestPipelineOrchestratorAgent:
@@ -48,8 +35,8 @@ class TestPipelineOrchestratorAgent:
 # Example usage
 if __name__ == "__main__":
     orchestrator = TestPipelineOrchestratorAgent()
-    compile_command = TestPipelineCommand(CompileStrategy())
-    orchestrator.set_command(compile_command)
+    compile_command = TestPipelineCommand( CompileStrategy())
+    orchestrator.set_command( compile_command )
     orchestrator.execute_command()
 
     # Further logic to add observers and execute different strategies
