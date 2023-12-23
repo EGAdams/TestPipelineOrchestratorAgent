@@ -1,7 +1,5 @@
 from typing import List
 from agency_swarm import set_openai_key, Agent
-import ITestCommand
-from .ITestPipelineObserver import ITestPipelineObserver
 from typing import List
 from strategies.CompileStrategy import CompileStrategy
 from commands.TestPipelineCommand import TestPipelineCommand
@@ -21,7 +19,6 @@ class RequirementsAnalysisTool:
 class TestGenerationTool:
     def generate_initial_failing_tests(self, scenarios):
         return "Initial failing tests"
-
 
 class TestCreatorAgent(Agent):
     def __init__(self):
