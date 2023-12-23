@@ -3,29 +3,13 @@ from agency_swarm import set_openai_key, Agent
 import ITestCommand
 from .ITestPipelineObserver import ITestPipelineObserver
 from typing import List
-from .strategies.CompileStrategy import CompileStrategy
+from strategies.CompileStrategy import CompileStrategy
+from commands.TestPipelineCommand import TestPipelineCommand
+from .TestPipelineOrchestratorAgent import TestPipelineOrchestratorAgent
 
 set_openai_key( input( "YOUR_API_KEY: " ))
 
-
 # Interface definitions (placeholders, define as needed)
-class TestPipelineCommand(ITestCommand):
-    def __init__(self, strategy):
-        self.strategy = strategy
-
-    def execute(self):
-        # Execute the command using the strategy
-        pass
-
-# Test Pipeline Orchestrator Agent
-class TestPipelineOrchestratorAgent(Agent):
-    def __init__(self):
-        super().__init__()
-        self.observers: List [ITestPipelineObserver ] = []
-        self.current_command: ITestCommand = None
-
-    # Remaining methods as previously defined
-
 class Codebase:
     def analyze_code(self):
         return "Code structure and signatures"
@@ -37,6 +21,7 @@ class RequirementsAnalysisTool:
 class TestGenerationTool:
     def generate_initial_failing_tests(self, scenarios):
         return "Initial failing tests"
+
 
 class TestCreatorAgent(Agent):
     def __init__(self):
