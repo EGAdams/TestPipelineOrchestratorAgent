@@ -1,5 +1,5 @@
-import ITestCommand
-import ITestStrategy
+from ITestCommand import ITestCommand
+from ITestStrategy import ITestStrategy
 
 # Concrete Command for initiating test pipeline steps.
 class TestPipelineCommand( ITestCommand ):

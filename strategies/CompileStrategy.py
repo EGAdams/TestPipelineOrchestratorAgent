@@ -1,5 +1,5 @@
+from ITestStrategy import ITestStrategy
 # compile_strategy.py
-from . import ITestStrategy
 
 # Concrete Strategy for Compilation
 class CompileStrategy( ITestStrategy ):
@@ -23,6 +23,6 @@ class CompileStrategy( ITestStrategy ):
         In simple terms, think of CompileStrategy as an empty to-do list titled "How to Compile Code." The list doesn't have any steps on it yet, but once the steps are added, it will guide the computer through the compilation process. The CompileStrategy is a part of a bigger system that can handle different testing tasks, and it represents the part that deals with compiling code.
     """
     
-    def execute_strategy(self):
+    def execute_strategy( self ):
         # Compilation logic goes here
         print ( "Compiling code..." )

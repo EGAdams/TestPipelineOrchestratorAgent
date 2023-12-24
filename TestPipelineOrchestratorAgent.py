@@ -1,13 +1,14 @@
 from abc import ABC, abstractmethod
 from typing import List, Callable
-from .ITestStrategy import ITestStrategy
-from .ITestPipelineObserver import ITestPipelineObserver
-from .strategies.CompileStrategy import CompileStrategy
-from .commands.TestPipelineCommand import TestPipelineCommand
-from .ITestCommand import ITestCommand
+from agency_swarm import Agent
+from ITestStrategy import ITestStrategy
+from ITestPipelineObserver import ITestPipelineObserver
+from strategies.CompileStrategy import CompileStrategy
+from commands.TestPipelineCommand import TestPipelineCommand
+from ITestCommand import ITestCommand
 
 # Test Pipeline Orchestrator Agent
-class TestPipelineOrchestratorAgent:
+class TestPipelineOrchestratorAgent ( Agent, ABC ):
     def __init__( self ):
         super().__init__(
             name="TestPipelineOrchestratorAgent",

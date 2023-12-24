@@ -24,7 +24,7 @@ class ExecuteTestsStrategy( ITestStrategy ):
     """
     pass
 
-    def execute_strategy(self):
+    def execute_strategy( self ):
         # Test execution logic goes here
         pass
     

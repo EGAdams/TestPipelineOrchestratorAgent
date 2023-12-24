@@ -1,46 +1,71 @@
 from typing import List
-from agency_swarm import set_openai_key, Agent
+from agency_swarm import set_openai_key
+from agency_swarm import Agent
+from tools import Codebase, RequirementsAnalysisTool, TestGenerationTool
+from instructor import OpenAISchema
 from typing import List
 from strategies.CompileStrategy import CompileStrategy
 from commands.TestPipelineCommand import TestPipelineCommand
-from .TestPipelineOrchestratorAgent import TestPipelineOrchestratorAgent
+from MessageSender import MessageSender
 
-set_openai_key( input( "YOUR_API_KEY: " ))
+# import sys
+# sys.path.append('/home/adamsl/')
 
-# Interface definitions (placeholders, define as needed)
-class Codebase:
-    def analyze_code(self):
-        return "Code structure and signatures"
+from TestPipelineOrchestratorAgent import TestPipelineOrchestratorAgent
 
-class RequirementsAnalysisTool:
-    def analyze_requirements(self):
-        return "Identified test scenarios"
 
-class TestGenerationTool:
-    def generate_initial_failing_tests(self, scenarios):
-        return "Initial failing tests"
+# set_openai_key(input("YOUR_API_KEY: "))
+set_openai_key( "sk-PITEHd8tJ95HWyi8L3hmT3BlbkFJxBP3CE8iBm8BfwrBRMmw8" )
 
-class TestCreatorAgent(Agent):
-    def __init__(self):
-        super().__init__()
-        self.codebase = Codebase()
-        self.requirements_tool = RequirementsAnalysisTool()
-        self.test_generation_tool = TestGenerationTool()
-        self.test_orchestrator_agent = TestPipelineOrchestratorAgent()
+# Assuming Codebase, RequirementsAnalysisTool, TestGenerationTool are defined elsewhere
+# and are compatible with the Instructor's BaseTool
 
-    def request_test_generation(self):
-        code_analysis = self.codebase.analyze_code()
-        test_scenarios = self.requirements_tool.analyze_requirements()
-        initial_failing_tests = self.test_generation_tool.generate_initial_failing_tests(test_scenarios)
-        self.test_orchestrator_agent.propose_tests(initial_failing_tests)
+class TestCreatorAgent( Agent ):
+    def __init__( self, message_sender: MessageSender ):
+        super().__init__(
+            name="test_agent_local",
+            files_folder="./files",
+            instructions="./instructions.md",
+            model="gpt-3.5-turbo-1106",
+            tools=[ Codebase, RequirementsAnalysisTool, TestGenerationTool ])
+        
+        self.message_sender = message_sender
+
+
+        self.test_orchestrator_agent_id = "TestPipelineOrchestratorAgent"
+
+def request_test_generation( self ):
+    try:
+        # Assuming each tool has the relevant method as per their definition
+        # code_analysis = self.codebase.run()
+        # test_scenarios = self.requirements_tool.analyze_requirements()
+        test_scenarios = []
+        initial_failing_tests = self.test_generation_tool.generate_initial_failing_tests(
+            test_scenarios)
+
+        # Using message sender to communicate with TestPipelineOrchestratorAgent
+        self.message_sender.send(
+            to=self.test_orchestrator_agent_id,
+            subject="Propose Tests",
+            content={
+                "initial_failing_tests": initial_failing_tests
+            }
+        )
+    except Exception as e:
+        # Handle exceptions appropriately
+        print(f"An error occurred: {e}")
+        # Additional error handling logic can be added here
+
+
 
 # Example usage
 if __name__ == "__main__":
-    developer = TestCreatorAgent()
-    developer.request_test_generation()
+    messageSender = MessageSender()
+    developer = TestCreatorAgent( messageSender )
+    # developer.request_test_generation()
 
     orchestrator = TestPipelineOrchestratorAgent()
-    compile_command = TestPipelineCommand(CompileStrategy())
-    orchestrator.set_command(compile_command)
+    compile_command = TestPipelineCommand( CompileStrategy())
+    orchestrator.set_command( compile_command )
     orchestrator.execute_command()
     # Further logic to add observers and execute different strategies

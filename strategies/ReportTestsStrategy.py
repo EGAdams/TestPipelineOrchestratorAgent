@@ -3,7 +3,7 @@ from abc import ABC, abstractmethod
 import ITestStrategy
 
 
-class ReportTestsStrategy(ITestStrategy):
+class ReportTestsStrategy( ITestStrategy ):
     pass
 
     """_summary_
